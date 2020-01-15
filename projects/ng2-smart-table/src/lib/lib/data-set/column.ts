@@ -1,7 +1,6 @@
 import { DataSet } from './data-set';
 
 export class Column {
-
   title: string = '';
   type: string = '';
   class: string = '';
@@ -10,17 +9,30 @@ export class Column {
   isEditable: boolean = true;
   isAddable: boolean = true;
   isFilterable: boolean = false;
+  isHidden: boolean = false;
   sortDirection: string = '';
   defaultSortDirection: string = '';
-  editor: { type: string, config: any, component: any } = { type: '', config: {}, component: null };
-  filter: { type: string, config: any, component: any } = { type: '', config: {}, component: null };
+  editor: { type: string; config: any; component: any } = {
+    type: '',
+    config: {},
+    component: null
+  };
+  filter: { type: string; config: any; component: any } = {
+    type: '',
+    config: {},
+    component: null
+  };
   renderComponent: any = null;
   compareFunction: Function;
   valuePrepareFunction: Function;
   filterFunction: Function;
   onComponentInitFunction: Function;
 
-  constructor(public id: string, protected settings: any, protected dataSet: DataSet) {
+  constructor(
+    public id: string,
+    protected settings: any,
+    protected dataSet: DataSet
+  ) {
     this.process();
   }
 
@@ -60,13 +72,27 @@ export class Column {
     this.editor = this.settings['editor'];
     this.filter = this.settings['filter'];
     this.renderComponent = this.settings['renderComponent'];
-
-    this.isFilterable = typeof this.settings['filter'] === 'undefined' ? true : !!this.settings['filter'];
-    this.defaultSortDirection = ['asc', 'desc']
-      .indexOf(this.settings['sortDirection']) !== -1 ? this.settings['sortDirection'] : '';
-    this.isSortable = typeof this.settings['sort'] === 'undefined' ? true : !!this.settings['sort'];
-    this.isEditable = typeof this.settings['editable'] === 'undefined' ? true : !!this.settings['editable'];
-    this.isAddable=typeof this.settings['addable'] === 'undefined' ? true : !!this.settings['addable'];
+    this.isHidden = this.settings['hidden'];
+    this.isFilterable =
+      typeof this.settings['filter'] === 'undefined'
+        ? true
+        : !!this.settings['filter'];
+    this.defaultSortDirection =
+      ['asc', 'desc'].indexOf(this.settings['sortDirection']) !== -1
+        ? this.settings['sortDirection']
+        : '';
+    this.isSortable =
+      typeof this.settings['sort'] === 'undefined'
+        ? true
+        : !!this.settings['sort'];
+    this.isEditable =
+      typeof this.settings['editable'] === 'undefined'
+        ? true
+        : !!this.settings['editable'];
+    this.isAddable =
+      typeof this.settings['addable'] === 'undefined'
+        ? true
+        : !!this.settings['addable'];
     this.sortDirection = this.prepareSortDirection();
 
     this.compareFunction = this.settings['compareFunction'];
