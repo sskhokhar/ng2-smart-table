@@ -88,7 +88,9 @@ function getDeepFromObject(object = {}, name, defaultValue) {
     return typeof level === 'undefined' ? defaultValue : level;
 }
 
-function prepareValue(value) { return value; }
+function prepareValue(value) {
+    return value;
+}
 class Cell {
     constructor(value, row, column, dataSet) {
         this.value = value;
@@ -106,7 +108,9 @@ class Cell {
     }
     getValue() {
         const valid = this.column.getValuePrepareFunction() instanceof Function;
-        const prepare = valid ? this.column.getValuePrepareFunction() : Cell.PREPARE;
+        const prepare = valid
+            ? this.column.getValuePrepareFunction()
+            : Cell.PREPARE;
         return prepare.call(null, this.value, this.row.getData(), this);
     }
     setValue(value) {
@@ -117,6 +121,9 @@ class Cell {
     }
     getTitle() {
         return this.getColumn().title;
+    }
+    getType() {
+        return this.getColumn().type;
     }
     isEditable() {
         if (this.getRow().index === -1) {
@@ -909,16 +916,19 @@ InputEditorComponent = __decorate([
     Component({
         selector: 'input-editor',
         template: `
-    <input [ngClass]="inputClass"
-           class="form-control"
-           [(ngModel)]="cell.newValue"
-           [name]="cell.getId()"
-           [placeholder]="cell.getTitle()"
-           [disabled]="!cell.isEditable()"
-           (click)="onClick.emit($event)"
-           (keydown.enter)="onEdited.emit($event)"
-           (keydown.esc)="onStopEditing.emit()">
-    `,
+    <input
+      [ngClass]="inputClass"
+      class="form-control"
+      [(ngModel)]="cell.newValue"
+      [name]="cell.getId()"
+      [type]="cell.getType()"
+      [placeholder]="cell.getTitle()"
+      [disabled]="!cell.isEditable()"
+      (click)="onClick.emit($event)"
+      (keydown.enter)="onEdited.emit($event)"
+      (keydown.esc)="onStopEditing.emit()"
+    />
+  `,
         styles: [":host input,:host textarea{width:100%;line-height:normal;padding:.375em .75em}"]
     }),
     __metadata("design:paramtypes", [])

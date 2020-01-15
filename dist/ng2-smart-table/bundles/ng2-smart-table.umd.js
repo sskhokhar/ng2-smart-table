@@ -154,7 +154,9 @@
         return typeof level === 'undefined' ? defaultValue : level;
     }
 
-    function prepareValue(value) { return value; }
+    function prepareValue(value) {
+        return value;
+    }
     var Cell = /** @class */ (function () {
         function Cell(value, row, column, dataSet) {
             this.value = value;
@@ -172,7 +174,9 @@
         };
         Cell.prototype.getValue = function () {
             var valid = this.column.getValuePrepareFunction() instanceof Function;
-            var prepare = valid ? this.column.getValuePrepareFunction() : Cell.PREPARE;
+            var prepare = valid
+                ? this.column.getValuePrepareFunction()
+                : Cell.PREPARE;
             return prepare.call(null, this.value, this.row.getData(), this);
         };
         Cell.prototype.setValue = function (value) {
@@ -183,6 +187,9 @@
         };
         Cell.prototype.getTitle = function () {
             return this.getColumn().title;
+        };
+        Cell.prototype.getType = function () {
+            return this.getColumn().type;
         };
         Cell.prototype.isEditable = function () {
             if (this.getRow().index === -1) {
@@ -963,7 +970,7 @@
         InputEditorComponent = __decorate([
             core.Component({
                 selector: 'input-editor',
-                template: "\n    <input [ngClass]=\"inputClass\"\n           class=\"form-control\"\n           [(ngModel)]=\"cell.newValue\"\n           [name]=\"cell.getId()\"\n           [placeholder]=\"cell.getTitle()\"\n           [disabled]=\"!cell.isEditable()\"\n           (click)=\"onClick.emit($event)\"\n           (keydown.enter)=\"onEdited.emit($event)\"\n           (keydown.esc)=\"onStopEditing.emit()\">\n    ",
+                template: "\n    <input\n      [ngClass]=\"inputClass\"\n      class=\"form-control\"\n      [(ngModel)]=\"cell.newValue\"\n      [name]=\"cell.getId()\"\n      [type]=\"cell.getType()\"\n      [placeholder]=\"cell.getTitle()\"\n      [disabled]=\"!cell.isEditable()\"\n      (click)=\"onClick.emit($event)\"\n      (keydown.enter)=\"onEdited.emit($event)\"\n      (keydown.esc)=\"onStopEditing.emit()\"\n    />\n  ",
                 styles: [":host input,:host textarea{width:100%;line-height:normal;padding:.375em .75em}"]
             }),
             __metadata("design:paramtypes", [])

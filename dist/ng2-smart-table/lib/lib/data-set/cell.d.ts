@@ -16,5 +16,6 @@ export declare class Cell {
     setValue(value: any): any;
     getId(): string;
     getTitle(): string;
+    getType(): string;
     isEditable(): boolean;
 }
