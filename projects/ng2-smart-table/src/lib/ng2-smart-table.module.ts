@@ -19,14 +19,9 @@ import { Ng2SmartTableComponent } from './ng2-smart-table.component';
     FilterModule,
     PagerModule,
     TBodyModule,
-    THeadModule,
+    THeadModule
   ],
-  declarations: [
-    Ng2SmartTableComponent,
-  ],
-  exports: [
-    Ng2SmartTableComponent,
-  ],
+  declarations: [Ng2SmartTableComponent],
+  exports: [Ng2SmartTableComponent]
 })
-export class Ng2SmartTableModule {
-}
+export class Ng2SmartTableModule {}

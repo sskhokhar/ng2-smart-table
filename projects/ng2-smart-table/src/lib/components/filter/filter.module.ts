@@ -4,13 +4,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2CompleterModule } from 'ng2-completer';
 
 import { FilterComponent } from './filter.component';
-import { DefaultFilterComponent } from "./default-filter.component";
-import { CustomFilterComponent } from "./custom-filter.component";
+import { DefaultFilterComponent } from './default-filter.component';
+import { CustomFilterComponent } from './custom-filter.component';
 import { CheckboxFilterComponent } from './filter-types/checkbox-filter.component';
 import { CompleterFilterComponent } from './filter-types/completer-filter.component';
 import { InputFilterComponent } from './filter-types/input-filter.component';
 import { SelectFilterComponent } from './filter-types/select-filter.component';
-
+import { DateFilterComponent } from './filter-types/date-filter.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 const FILTER_COMPONENTS = [
   FilterComponent,
   DefaultFilterComponent,
@@ -19,6 +20,7 @@ const FILTER_COMPONENTS = [
   CompleterFilterComponent,
   InputFilterComponent,
   SelectFilterComponent,
+  DateFilterComponent
 ];
 
 @NgModule({
@@ -27,12 +29,10 @@ const FILTER_COMPONENTS = [
     FormsModule,
     ReactiveFormsModule,
     Ng2CompleterModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
-  declarations: [
-    ...FILTER_COMPONENTS,
-  ],
-  exports: [
-    ...FILTER_COMPONENTS,
-  ],
+  declarations: [...FILTER_COMPONENTS],
+  exports: [...FILTER_COMPONENTS]
 })
-export class FilterModule { }
+export class FilterModule {}
